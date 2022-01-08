@@ -78,3 +78,5 @@ jobs:
         uses: actions-rs/tarpaulin@v0.1
         with:
           args: '--ignore-tests'
+      - name: Codecov
+        uses: codecov/codecov-action@v2
