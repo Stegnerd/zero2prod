@@ -21,4 +21,6 @@ name  = "zero2prod"
 # = exactly this version
 actix-web = "=4.0.0-beta.19"
 tokio = { version = "1", features= ["macros", "rt-multi-thread"] }
+
+[dev-dependencies]
 reqwest = "0.11"
