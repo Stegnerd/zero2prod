@@ -1,0 +1,17 @@
+name: Security Audit
+on:
+  push:
+    # when either of these files is modified
+    paths:
+      - '**/Cargo.toml'
+      - '**/Cargo.lock'
+
+jobs:
+  security_audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      # details about secrets: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
+      - uses: actions-rs/audit-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
