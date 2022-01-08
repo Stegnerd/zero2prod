@@ -1,11 +1,24 @@
 [package]
 name = "zero2prod"
 version = "0.1.0"
+authors = ["Dalton Stegner <dmstegner@gmail.com>"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+# moved core logic to lib since that can be shared with tests
+[lib]
+path = "src/lib.rs"
+
+# we can only have one library but multiple binaries
+# we don't have to do this but doesn't hurt to be explicit
+[[bin]]
+path = "src/main.rs"
+name  = "zero2prod"
+
 
 [dependencies]
 # = exactly this version
 actix-web = "=4.0.0-beta.19"
 tokio = { version = "1", features= ["macros", "rt-multi-thread"] }
+reqwest = "0.11"
