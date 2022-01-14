@@ -8,6 +8,16 @@ async fn health_check() -> HttpResponse {
     HttpResponse::Ok().finish()
 }
 
+#[derive(serde::Deserialize)]
+struct FormData {
+    email: String,
+    name: String,
+}
+
+async fn subscribe(_form: web::Form<FormData>) -> HttpResponse {
+    HttpResponse::Ok().finish()
+}
+
 // We return `Server` on th happy path we dropped the `async` keyword
 // we have no await call build server and return it, main is awaiting on it
 pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
@@ -16,6 +26,7 @@ pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
             // web::get() is shortcut for
             // Route::new().guard(guard::get())
             .route("/health_check", web::get().to(health_check))
+            .route("/subscriptions", web::post().to(subscribe))
     })
     // rather than bind we listen for which addr comes in
     .listen(listener)?
