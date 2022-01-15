@@ -26,6 +26,25 @@ tokio = { version = "1", features= ["macros", "rt-multi-thread"] }
 # The feature is not enabled by default to avoid pulling in
 # unnecessary dependencies for projects that do not need it.
 serde = { version = "1", features = ["derive"] }
+config = "0.11"
+
+[dependencies.sqlx]
+version = "0.5.7"
+default-features = false
+features = [
+    # sqlx to use the actix runtime for its futures and rustls as TLS backend
+    "runtime-actix-rustls",
+    # give access to sqlx::query and query_as
+    "macros",
+    # postgres functionality
+    "postgres",
+    # sql UUID to uuid crate (id column)
+    "uuid",
+    # timestamptz to DateTime<T>
+    "chrono",
+    # gives us migration functionality sqlx-cli
+    "migrate"
+]
 
 [dev-dependencies]
 reqwest = "0.11"
