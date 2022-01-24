@@ -1,8 +1,11 @@
-use crate::routes::{health_check, subscribe};
+use std::net::TcpListener;
+
 use actix_web::dev::Server;
 use actix_web::{web, App, HttpServer};
 use sqlx::PgPool;
-use std::net::TcpListener;
+use tracing_actix_web::TracingLogger;
+
+use crate::routes::{health_check, subscribe};
 
 // We return `Server` on th happy path we dropped the `async` keyword
 // we have no await call build server and return it, main is awaiting on it
@@ -13,6 +16,7 @@ pub fn run(listener: TcpListener, db_pool: PgPool) -> Result<Server, std::io::Er
 
     let server = HttpServer::new(move || {
         App::new()
+            .wrap(TracingLogger::default())
             // web::get() is shortcut for
             // Route::new().guard(guard::get())
             .route("/health_check", web::get().to(health_check))

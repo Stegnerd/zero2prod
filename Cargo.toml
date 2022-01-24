@@ -14,21 +14,35 @@ path = "src/lib.rs"
 # we don't have to do this but doesn't hurt to be explicit
 [[bin]]
 path = "src/main.rs"
-name  = "zero2prod"
+name = "zero2prod"
 
 
 [dependencies]
 # = exactly this version
 actix-web = "=4.0.0-beta.19"
-tokio = { version = "1", features= ["macros", "rt-multi-thread"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 # we need the optional `derive` feature to use `serde's` procedural macros
 # `#[derive(Serialize)]` and `#[derive(Deserialize)]`.
 # The feature is not enabled by default to avoid pulling in
 # unnecessary dependencies for projects that do not need it.
 serde = { version = "1", features = ["derive"] }
 config = "0.11"
+# generate uuid
 uuid = { version = "0.8.1", features = ["v4"] }
+# used for utc
 chrono = "0.4.15"
+# used for tracing through threads
+tracing = { version = "0.1", features = ["log"] }
+# more structured, reduce boiler plate logging
+tracing-subscriber = { version = "0.3", features = ["registry", "env-filter"] }
+# formattig of logging
+tracing-bunyan-formatter = "0.3"
+# explicitly register a logger implementation to redirect logs to our tracing subscriber for processing.
+tracing-log = "0.1"
+# makes actix web logging aware
+tracing-actix-web = "=0.5.0-beta.9"
+# used to mark model fields that are considered sensitive
+secrecy = { version = "0.8", features = ["serde"] }
 
 [dependencies.sqlx]
 version = "0.5.7"
@@ -49,4 +63,7 @@ features = [
 ]
 
 [dev-dependencies]
+# used to make calls in tests
 reqwest = "0.11"
+# used for like globalization data, called at most once
+once_cell = "1"
