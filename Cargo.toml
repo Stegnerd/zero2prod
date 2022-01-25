@@ -26,6 +26,8 @@ tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 # The feature is not enabled by default to avoid pulling in
 # unnecessary dependencies for projects that do not need it.
 serde = { version = "1", features = ["derive"] }
+# allows custom deserialization functions
+serde-aux = "3"
 config = "0.11"
 # generate uuid
 uuid = { version = "0.8.1", features = ["v4"] }
@@ -59,7 +61,9 @@ features = [
     # timestamptz to DateTime<T>
     "chrono",
     # gives us migration functionality sqlx-cli
-    "migrate"
+    "migrate",
+    # used to mock connection for offline
+    "offline"
 ]
 
 [dev-dependencies]

@@ -12,6 +12,7 @@
 - start it again when already running: SKIP_DOCKER=true ./scripts/init_db.sh
 - cargo *nughtly udeps - looks for dependencies not being used
 - TEST_LOG=true cargo test | bunyan - run tests with logging
+- cargo sqlx prepare -- --lib -> perform sqlx functions to mock offline to sqlx-data.json
 
 ### Notes
 
