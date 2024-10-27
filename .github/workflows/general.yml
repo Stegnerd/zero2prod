@@ -9,8 +9,7 @@ on:
   #  push:
   #    branches:
   #      - root-chapter-03-part1
-  pull_request:
-    types: [ opened, synchronize, reopened ]
+  [ push, pull_request ]
 #    branches:
 #      - root-chapter-03-part1
 
