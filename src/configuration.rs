@@ -84,14 +84,6 @@ impl TryFrom<String> for Environment {
 
 impl DatabaseSettings {
     pub fn connection_options(&self) -> PgConnectOptions {
-        // Secret::new(format!(
-        //     "postgres://{}:{}@{}:{}/{}",
-        //     self.username,
-        //     self.password.expose_secret(),
-        //     self.host,
-        //     self.port,
-        //     self.database_name
-        // ))
         let ssl_mode = if self.require_ssl {
             PgSslMode::Require
         } else {
@@ -101,7 +93,7 @@ impl DatabaseSettings {
         PgConnectOptions::new()
             .host(&self.host)
             .username(&self.username)
-            .password(&self.password.expose_secret())
+            .password(self.password.expose_secret())
             .port(self.port)
             .ssl_mode(ssl_mode)
             .database(&self.database_name)
